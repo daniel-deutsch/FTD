@@ -163,21 +163,37 @@ From the plot above, we can observe that the Pareto Type II distribution seems t
 
 As the log-likelihood of the Pareto Type II distribution is greater than the one from Pareto Type I distribution, we can say that this distribution better describes the data.
 
-In spite of observing that the Pareto Type II distribution is a better fit for the data, I decided to pursue the rolling window analysis based on Pareto Type I distribution due to its simplicity of calculations.
+In spite of observing that the Pareto Type II distribution is a better fit for the data, I decided to pursue the rolling window analysis based on Pareto Type I distribution due to its simplicity of calculations. The QQ-Plot considering the Pareto Type I distribution can be seen below:
+
+\begin{center}
+    \includegraphics[scale=0.5]{imgs/qqplot.png}
+\end{center}
 
 \subsection{Pareto Type I Rolling Window Parameter Estimations}
 
-Once the scope of this section is set, all we need to do is estimate the parameters for each window of the rolling window. Since I'm using Pareto Type I distribution to estimate the parameters, it is possible to obtain both $\alpha$ and its upper and lower bound of the confidence interval at 95\% confidence by the following:
+Once the scope of this section is set, all we need to do is estimate the parameters for each window of the rolling window. Since I'm using Pareto Type I distribution to estimate the parameters, it is possible to obtain $\alpha$ from the Hill estimator, which is given by the following:
 
 \begin{align*}
-    \begin{cases}
-        \hat{\alpha} & = \left( \frac{1}{N} \sum_{i} (log \ x_i - log \ u) \right)^{-1} \\
-        lci & = \left[ \frac{1}{\hat{\alpha}} \left(1 +\frac{2}{N} \right) \right]^{-1} \\
-        uci & = \left[ \frac{1}{\hat{\alpha}} \left(1 -\frac{2}{N} \right) \right]^{-1}
-    \end{cases}
-\end{align*}
+    \hat{\alpha} & = \left( \frac{1}{N} \sum_{i} (log \ x_i - log \ u) \right)^{-1}
+\end{align*}  
 
-Where $N$ is the number of samples in the window and $u$ is the smallest value in the sample.
+Where $N$ is the number of samples in the window and u is the minimum total damages adjusted on the window.
+
+It is worth mentioning that during the rolling window alpha estimation, it was necessary to define a threshold $u_{\text{prime}}$ that defines the interval where the Pareto Type I distribution can be fitted.
+
+According to \href{https://agupubs.onlinelibrary.wiley.com/doi/epdf/10.1002/2015WR018502}{Langousis, A., Mamalakis, A., Puliga, M., and Deidda, R. (2016)} the threshold $u_{\text{prime}}$, can be obtained by observing the plot of $E[X - u_{\text{prime}} | X > u_{\text{prime}}]$ over $u_{\text{prime}}$ and end selecting the $u_{\text{prime}}$ inside the interval where the expected value behaves linearly.
+
+\begin{center}
+    \includegraphics[scale=0.5]{imgs/mrlp.png}
+\end{center}
+
+From the plot above, one can verify that the u selected for this project is 5800000.
+
+From the Central Limit Theorem, it follows that the estimate of $\frac{1}{\alpha}$ is asymptotically normally distributed $\mathcal{N} \left(\frac{1}{\alpha}, \frac{1}{N \alpha^2} \right)$. Therefore, one can find the confidence interval at 95\% can be approximated with:
+
+\begin{align*}
+    \hat{\alpha} \left( 1 \pm \frac{z_{0.05/2}}{\sqrt{N}} \right)
+\end{align*} 
 
 This yields the following plot:
 
@@ -241,8 +257,7 @@ Given the results obtained in section 3.3 we can conclude that as, the values of
 \newpage
 \begin{thebibliography}{9}
     \bibitem A Quantitative methods in finance, Eric Vansteenberghe, January 29, 2022.
+    \bibitem LLangousis, A., Mamalakis, A., Puliga, M., and Deidda, R. (2016), Threshold detection for the generalized Pareto distribution: Review of representative methods and application to the NOAA NCDC daily rainfall database, Water Resour. Res., 52, 2659– 2681, doi:10.1002/2015WR018502.
 \end{thebibliography}
 
 \end{document}
-
-
