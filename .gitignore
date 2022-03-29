@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.DS_Store
 
 # C extensions
 *.so
@@ -126,8 +127,11 @@ venv.bak/
 dmypy.json
 
 # other
-.pdf
-.zip
+*.pdf
+*.zip
+Big Data in Finance/project/datasets/ohlcv
+Big Data in Finance/project/datasets/prices.csv
+Big Data in Finance/project/datasets/sentiment.csv
 
 # Pyre type checker
 .pyre/
