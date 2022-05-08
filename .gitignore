@@ -132,6 +132,8 @@ dmypy.json
 Big Data in Finance/project/datasets/ohlcv
 Big Data in Finance/project/datasets/prices.csv
 Big Data in Finance/project/datasets/sentiment.csv
+Financial Econometrics II/project/literature and support
+Financial Econometrics II/project/Diane-data.dta
 
 # Pyre type checker
 .pyre/
